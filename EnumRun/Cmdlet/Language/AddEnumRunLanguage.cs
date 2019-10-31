@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Management.Automation;
+using EnumRun.Serialize;
+using System.IO;
 
 namespace EnumRun.Cmdlet
 {
@@ -28,19 +30,27 @@ namespace EnumRun.Cmdlet
         public string ArgsMidWithArgs { get; set; }
         [Parameter]
         public string ArgsSuffix { get; set; }
-        [Parameter]
-        public string Path { get; set; }
+        [Parameter(Position = 0), Alias("Path")]
+        public string SettingPath { get; set; }
+
+        private EnumRunSetting _setting = null;
 
         protected override void BeginProcessing()
         {
-            Item.Setting = EnumRunSetting.Load(Path);
+            if (string.IsNullOrEmpty(SettingPath))
+            {
+                string currentDirSetting = Path.Combine(Item.CURRENT_DIR, Item.CONFIG_JSON);
+                string programdataSetting = Path.Combine(Item.DEFAULT_WORKDIR, Item.CONFIG_JSON);
+                SettingPath = File.Exists(currentDirSetting) ? currentDirSetting : programdataSetting;
+            }
+            _setting = DataSerializer.Deserialize<EnumRunSetting>(SettingPath);
         }
 
         protected override void ProcessRecord()
         {
             if (Language == null && !string.IsNullOrEmpty(Name))
             {
-                Language[] langs = Item.Setting.GetLanguage(Name);
+                Language[] langs = _setting.GetLanguage(Name);
                 if (langs != null && langs.Length > 0)
                 {
                     //  すでに同じ名前のLanguageがある為、追加不可
@@ -49,7 +59,7 @@ namespace EnumRun.Cmdlet
                 else
                 {
                     //  名前を指定の場合は1つずつ追加
-                    Item.Setting.Languages.Add(new Language()
+                    _setting.Languages.Add(new Language()
                     {
                         Name = this.Name,
                         Extensions = this.Extensions,
@@ -66,18 +76,21 @@ namespace EnumRun.Cmdlet
             {
                 foreach (Language lang in Language)
                 {
-                    if(Item.Setting.Languages.Any(x => x.Name.Equals(lang.Name, StringComparison.OrdinalIgnoreCase)))
+                    if(_setting.Languages.Any(x => x.Name.Equals(lang.Name, StringComparison.OrdinalIgnoreCase)))
                     {
                         //  すでに同じ名前のLanguageがある為、追加不可
                         return;
                     }
                     else
                     {
-                        Item.Setting.Languages.Add(lang);
+                        _setting.Languages.Add(lang);
                     }
                 }
             }
-            Item.Setting.Save(Path);
+
+            DataSerializer.Serialize<EnumRunSetting>(_setting, SettingPath);
+
+            WriteObject(_setting);
         }
     }
 }

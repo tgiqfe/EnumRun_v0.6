@@ -77,10 +77,6 @@ namespace EnumRun.Cmdlet
             //  Languages設定
             if (Languages != null && Languages.Length > 0) { _setting.Languages = new List<Language>(Languages); }
 
-            if (!Directory.Exists(Path.GetDirectoryName(SettingPath)))
-            {
-                Directory.CreateDirectory(Path.GetDirectoryName(SettingPath));
-            }
             DataSerializer.Serialize<EnumRunSetting>(_setting, SettingPath);
 
             WriteObject(_setting);

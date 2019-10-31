@@ -27,13 +27,6 @@ namespace EnumRun.Cmdlet
         [Parameter]
         public string ArgsSuffix { get; set; }
 
-        /*
-        protected override void BeginProcessing()
-        {
-            Item.Config = EnumRunConfig.Load();
-        }
-        */
-
         protected override void ProcessRecord()
         {
             WriteObject(new Language()

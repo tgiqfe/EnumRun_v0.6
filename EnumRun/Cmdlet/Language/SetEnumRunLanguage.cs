@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Management.Automation;
+using System.IO;
+using EnumRun.Serialize;
 
 namespace EnumRun.Cmdlet
 {
@@ -28,19 +30,27 @@ namespace EnumRun.Cmdlet
         public string ArgsMidWithArgs { get; set; }
         [Parameter]
         public string ArgsSuffix { get; set; }
-        [Parameter]
-        public string Path { get; set; }
+        [Parameter(Position = 0), Alias("Path")]
+        public string SettingPath { get; set; }
+
+        private EnumRunSetting _setting = null;
 
         protected override void BeginProcessing()
         {
-            Item.Setting = EnumRunSetting.Load(Path);
+            if (string.IsNullOrEmpty(SettingPath))
+            {
+                string currentDirSetting = Path.Combine(Item.CURRENT_DIR, Item.CONFIG_JSON);
+                string programdataSetting = Path.Combine(Item.DEFAULT_WORKDIR, Item.CONFIG_JSON);
+                SettingPath = File.Exists(currentDirSetting) ? currentDirSetting : programdataSetting;
+            }
+            _setting = DataSerializer.Deserialize<EnumRunSetting>(SettingPath);
         }
 
         protected override void ProcessRecord()
         {
             if (Language == null && !string.IsNullOrEmpty(Name))
             {
-                Language[] langs = Item.Setting.GetLanguage(Name);
+                Language[] langs = _setting.GetLanguage(Name);
                 if (langs != null && langs.Length > 0)
                 {
                     foreach (Language lang in langs)
@@ -65,10 +75,10 @@ namespace EnumRun.Cmdlet
                 //  パイプラインで渡されたLanguageと名前が一致している場合に上書き
                 foreach (Language lang in Language)
                 {
-                    int index = Item.Setting.Languages.FindIndex(x => x.Name.Equals(lang.Name, StringComparison.OrdinalIgnoreCase));
+                    int index = _setting.Languages.FindIndex(x => x.Name.Equals(lang.Name, StringComparison.OrdinalIgnoreCase));
                     if (index >= 0)
                     {
-                        Item.Setting.Languages[index] = lang;
+                        _setting.Languages[index] = lang;
                     }
                     else
                     {
@@ -77,7 +87,7 @@ namespace EnumRun.Cmdlet
                     }
                 }
             }
-            Item.Setting.Save(Path);
+            DataSerializer.Serialize<EnumRunSetting>(_setting, SettingPath);
         }
     }
 }

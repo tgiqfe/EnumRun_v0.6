@@ -99,6 +99,10 @@ namespace EnumRun.Serialize
         /// <param name="fileName"></param>
         public static void Serialize<T>(object obj, string fileName)
         {
+            if (!Directory.Exists(Path.GetDirectoryName(fileName)))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(fileName));
+            }
             using (StreamWriter sw = new StreamWriter(fileName, false, Encoding.UTF8))
             {
                 Serialize<T>(obj, sw, Enum.TryParse(
