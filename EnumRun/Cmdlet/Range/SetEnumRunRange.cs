@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Management.Automation;
+using System.IO;
+using EnumRun.Serialize;
 
 namespace EnumRun.Cmdlet
 {
@@ -18,19 +20,27 @@ namespace EnumRun.Cmdlet
         public int StartNumber { get; set; }
         [Parameter(Position = 2)]
         public int EndNumber { get; set; }
-        [Parameter]
-        public string Path { get; set; }
+        [Parameter(Position = 0), Alias("Path")]
+        public string SettingPath { get; set; }
+
+        private EnumRunSetting _setting = null;
 
         protected override void BeginProcessing()
         {
-            Item.Setting = EnumRunSetting.Load(Path);
+            if (string.IsNullOrEmpty(SettingPath))
+            {
+                string currentDirSetting = Path.Combine(Item.CURRENT_DIR, Item.CONFIG_JSON);
+                string programdataSetting = Path.Combine(Item.DEFAULT_WORKDIR, Item.CONFIG_JSON);
+                SettingPath = File.Exists(currentDirSetting) ? currentDirSetting : programdataSetting;
+            }
+            _setting = DataSerializer.Deserialize<EnumRunSetting>(SettingPath);
         }
 
         protected override void ProcessRecord()
         {
             if (Range == null && !string.IsNullOrEmpty(Name))
             {
-                Range[] ranges = Item.Setting.GetRange(Name);
+                Range[] ranges = _setting.GetRange(Name);
                 if(ranges != null && ranges.Length > 0)
                 {
                     foreach(Range range in ranges)
@@ -50,10 +60,10 @@ namespace EnumRun.Cmdlet
                 //  パイプラインで渡されたRangeと名前が一致している場合に上書き
                 foreach(Range range in Range)
                 {
-                    int index = Item.Setting.Ranges.FindIndex(x => x.Name.Equals(range.Name, StringComparison.OrdinalIgnoreCase));
+                    int index = _setting.Ranges.FindIndex(x => x.Name.Equals(range.Name, StringComparison.OrdinalIgnoreCase));
                     if(index >= 0)
                     {
-                        Item.Setting.Ranges[index] = range;
+                        _setting.Ranges[index] = range;
                     }
                     else
                     {
@@ -62,7 +72,9 @@ namespace EnumRun.Cmdlet
                     }
                 }
             }
-            Item.Setting.Save(Path);
+            DataSerializer.Serialize<EnumRunSetting>(_setting, SettingPath);
+
+            WriteObject(_setting);
         }
     }
 }
