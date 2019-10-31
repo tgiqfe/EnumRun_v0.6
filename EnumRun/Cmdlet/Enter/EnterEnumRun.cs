@@ -40,11 +40,11 @@ namespace EnumRun.Cmdlet
         {
             if (Item.Setting.RunOnce && !BootAndLogonSession.Check(ProcessName))
             {
-                Item.Logger.Warn("RunOnce:true 2回目以降の為、終了");
+                Item.Logger.Warn("RunOnce true: 1回実行済みの為、終了");
                 return;
             }
 
-            Item.Logger.Debug("開始 {0}", ProcessName);
+            Item.Logger.Debug("{0}: 開始", ProcessName);
 
             Range range = Item.Setting.Ranges.FirstOrDefault(x => x.Name.Equals(ProcessName, StringComparison.OrdinalIgnoreCase));
             if (range != null)
@@ -65,7 +65,7 @@ namespace EnumRun.Cmdlet
             }
 
             Item.Logger.Debug("所要時間(ミリ秒):{0}", (DateTime.Now - Item.StartTime).Milliseconds);
-            Item.Logger.Debug("終了 {0}", ProcessName);
+            Item.Logger.Debug("{0}: 終了", ProcessName);
         }
 
         protected override void EndProcessing()
