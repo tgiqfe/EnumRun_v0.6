@@ -29,9 +29,7 @@ namespace EnumRun.Cmdlet
         {
             if (string.IsNullOrEmpty(SettingPath))
             {
-                string currentDirSetting = Path.Combine(Item.CURRENT_DIR, Item.CONFIG_JSON);
-                string programdataSetting = Path.Combine(Item.DEFAULT_WORKDIR, Item.CONFIG_JSON);
-                SettingPath = File.Exists(currentDirSetting) ? currentDirSetting : programdataSetting;
+                SettingPath = File.Exists(Item.CURRENT_DIR_SETTING) ? Item.CURRENT_DIR_SETTING : Item.PROGRAMDATA_SETTING;
             }
             _setting = DataSerializer.Deserialize<EnumRunSetting>(SettingPath);
         }

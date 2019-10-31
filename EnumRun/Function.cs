@@ -16,7 +16,7 @@ using NLog.Targets;
 
 namespace EnumRun
 {
-    class Function
+    internal class Function
     {
         /// <summary>
         /// ログ出力設定

@@ -16,8 +16,17 @@ namespace EnumRun
         public static readonly string DEFAULT_WORKDIR = Path.Combine(
             Environment.ExpandEnvironmentVariables("%PROGRAMDATA%"),
             APPLICATION_NAME);
-        public static readonly string CURRENT_DIR = 
-            Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        //public static readonly string CURRENT_DIR =
+        //    Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        public static readonly string CURRENT_DIR_SETTING = Path.Combine(
+            Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+            CONFIG_JSON);
+        public static readonly string PROGRAMDATA_SETTING = Path.Combine(
+            Environment.ExpandEnvironmentVariables("%PROGRAMDATA%"),
+            APPLICATION_NAME,
+            CONFIG_JSON);
+
+
 
         //  複数オブジェクトからアクセスする予定のあるパラメータ
         public static EnumRunSetting Setting = null;
