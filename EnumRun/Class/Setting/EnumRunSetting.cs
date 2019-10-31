@@ -31,6 +31,7 @@ namespace EnumRun
         }
 
         //  廃止予定
+        /*
         public EnumRunSetting(bool loadDefault)
         {
             if (loadDefault)
@@ -45,17 +46,14 @@ namespace EnumRun
                 this.Languages = DefaultLanguageSetting.Create();
             }
         }
-
-
-
-
-
+        */
 
         //  廃止予定
         /// <summary>
         /// 設定ファイルからEnumRunSettingパラメータをロード
         /// </summary>
         /// <returns>読み込んEnumRunConfigインスタンス</returns>
+        /*
         public static EnumRunSetting Load(string confFile)
         {
             if (confFile == null)
@@ -69,11 +67,13 @@ namespace EnumRun
                 new EnumRunSetting(true) :
                 DataSerializer.Deserialize<EnumRunSetting>(confFile);
         }
+        */
 
         //  廃止予定
         /// <summary>
         /// 設定を保存
         /// </summary>
+        /*
         public void Save(string confFile)
         {
             if (confFile == null)
@@ -89,7 +89,7 @@ namespace EnumRun
             }
             DataSerializer.Serialize<EnumRunSetting>(this, confFile);
         }
-
+        */
 
         /// <summary>
         /// 一致する名前のLanguage配列を取得

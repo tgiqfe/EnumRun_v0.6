@@ -12,7 +12,8 @@ namespace EnumRun
 {
     public class Script
     {
-        private Language _Lang = null;
+        private Language _lang = null;
+        private EnumRunSetting _setting = null;
 
         public bool Enabled { get; set; }
         public string Name { get; set; }
@@ -22,18 +23,18 @@ namespace EnumRun
         {
             get
             {
-                if (this._Lang == null && Item.Setting != null && !string.IsNullOrEmpty(this.File))
+                if (this._lang == null && Item.Setting != null && !string.IsNullOrEmpty(this.File))
                 {
                     string extension = Path.GetExtension(File);
-                    this._Lang = Item.Setting.Languages.FirstOrDefault(x =>
+                    this._lang = Item.Setting.Languages.FirstOrDefault(x =>
                         x.Extensions.Any(y =>
                             y.Equals(extension, StringComparison.OrdinalIgnoreCase)));
                 }
-                return _Lang == null ? "" : _Lang.ToString();
+                return _lang == null ? "" : _lang.ToString();
             }
             set
             {
-                this._Lang = Item.Setting.Languages.FirstOrDefault(x =>
+                this._lang = Item.Setting.Languages.FirstOrDefault(x =>
                     x.Name.Equals(value, StringComparison.OrdinalIgnoreCase));
             }
         }
@@ -42,6 +43,8 @@ namespace EnumRun
         public int AfterTime { get; set; }
 
         public Script() { }
+
+        //  廃止予定
         public Script(string scriptFile, int startNum, int endNum)
         {
             this.Name = Path.GetFileName(scriptFile);
@@ -54,6 +57,29 @@ namespace EnumRun
             //  実行時オプション確認
             DetectOption();
         }
+
+        //  こちらを今後採用予定
+        public Script(string scriptFile, EnumRunSetting setting, Range range)
+        {
+            //  実行可否確認
+            Match tempMatch;
+            if ((tempMatch = Regex.Match(Name, @"^\d+(?=_)")).Success)
+            {
+                int fileNumber = int.Parse(tempMatch.Value);
+                if (fileNumber >= range.StartNumber && fileNumber <= range.EndNumber)
+                {
+                    this._setting = setting;
+                    if (!string.IsNullOrEmpty(this.Lang))
+                    {
+                        this.Enabled = true;
+                        this.Name = Path.GetFileName(scriptFile);
+                        this.File = scriptFile;
+                        DetectOption();
+                    }
+                }
+            }
+        }
+
 
         /// <summary>
         /// 実行可否を確認
@@ -221,7 +247,7 @@ namespace EnumRun
         {
             await Task.Run(() =>
             {
-                using (Process proc = _Lang.GetProcess(File, Args))
+                using (Process proc = _lang.GetProcess(File, Args))
                 {
                     proc.StartInfo.Verb = CheckOption(EnumRunOption.RunAsAdmin) ? "RunAs" : "";
                     proc.StartInfo.CreateNoWindow = true;
@@ -244,7 +270,7 @@ namespace EnumRun
             }
             await Task.Run(() =>
             {
-                using (Process proc = _Lang.GetProcess(File, Args))
+                using (Process proc = _lang.GetProcess(File, Args))
                 using (StreamWriter sw = new StreamWriter(outputFile, true, Encoding.GetEncoding("Shift_JIS")))
                 {
                     proc.StartInfo.Verb = CheckOption(EnumRunOption.RunAsAdmin) ? "RunAs" : "";
