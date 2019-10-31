@@ -13,6 +13,7 @@ using System.Security.Cryptography;
 using NLog;
 using NLog.Config;
 using NLog.Targets;
+using System.Reflection;
 
 namespace EnumRun
 {
@@ -80,6 +81,17 @@ namespace EnumRun
                 verbName += className[i];
             }
             return verbName + "-" + command;
+        }
+
+        /// <summary>
+        /// バージョン番号を取得
+        /// </summary>
+        /// <returns></returns>
+        public static string GetVersion()
+        {
+            Version ver = Assembly.GetExecutingAssembly().GetName().Version;
+            return string.Format("{0}.{1}.{2}.{3}",
+                ver.Major, ver.Minor, ver.Build, ver.Revision);
         }
 
         /// <summary>

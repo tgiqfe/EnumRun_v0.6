@@ -14,9 +14,11 @@ namespace EnumRun.Cmdlet
     {
         [Parameter(Position = 0)]
         public string Name { get; set; }
+        [Parameter]
+        public SwitchParameter Version { get; set; }
         [Parameter(Position = 0), Alias("Path")]
         public string SettingPath { get; set; }
-
+        
         private EnumRunSetting _setting = null;
 
         protected override void BeginProcessing()
@@ -30,13 +32,20 @@ namespace EnumRun.Cmdlet
 
         protected override void ProcessRecord()
         {
-            if (Name == null)
+            if (Version)
             {
-                WriteObject(_setting.Ranges);
+                WriteObject("EnumRun - v" + Function.GetVersion());
             }
             else
             {
-                WriteObject(_setting.GetRange(Name));
+                if (Name == null)
+                {
+                    WriteObject(_setting.Ranges);
+                }
+                else
+                {
+                    WriteObject(_setting.GetRange(Name));
+                }
             }
         }
     }
