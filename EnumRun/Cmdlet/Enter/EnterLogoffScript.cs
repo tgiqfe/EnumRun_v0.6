@@ -31,7 +31,7 @@ namespace EnumRun.Cmdlet
             _startTime = DateTime.Now;
 
             //  ログ出力設定のセット
-            Item.Logger = Function.SetLogger(_setting.LogsPath, Item.APPLICATION_NAME, _setting.DebugMode);
+            Item.Logger = Function.SetLogger(_setting.LogsPath, ProcessName, _setting.DebugMode);
             if (_setting.DebugMode) { Item.Logger.Debug(Function.GetCmdletName(this.GetType().Name)); }
         }
 

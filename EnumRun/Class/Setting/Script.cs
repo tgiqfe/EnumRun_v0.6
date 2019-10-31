@@ -63,6 +63,9 @@ namespace EnumRun
         //  こちらを今後採用予定
         public Script(string scriptFile, Range range, EnumRunSetting setting)
         {
+            this.File = scriptFile;
+            this.Name = Path.GetFileName(scriptFile);
+
             //  実行可否確認
             Match tempMatch;
             if ((tempMatch = Regex.Match(Name, @"^\d+(?=_)")).Success)
@@ -74,8 +77,6 @@ namespace EnumRun
                     if (!string.IsNullOrEmpty(this.Lang))
                     {
                         this.Enabled = true;
-                        this.Name = Path.GetFileName(scriptFile);
-                        this.File = scriptFile;
                         DetectOption();
                     }
                 }
