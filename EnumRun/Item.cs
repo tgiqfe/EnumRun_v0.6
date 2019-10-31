@@ -26,10 +26,8 @@ namespace EnumRun
             APPLICATION_NAME,
             CONFIG_JSON);
 
-
-
         //  複数オブジェクトからアクセスする予定のあるパラメータ
-        public static EnumRunSetting Setting = null;
+        //public static EnumRunSetting Setting = null;
         public static Logger Logger = null;
         public static DateTime StartTime;
 

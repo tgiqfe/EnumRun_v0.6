@@ -23,10 +23,10 @@ namespace EnumRun
         {
             get
             {
-                if (this._lang == null && Item.Setting != null && !string.IsNullOrEmpty(this.File))
+                if (this._lang == null && _setting != null && !string.IsNullOrEmpty(this.File))
                 {
                     string extension = Path.GetExtension(File);
-                    this._lang = Item.Setting.Languages.FirstOrDefault(x =>
+                    this._lang = _setting.Languages.FirstOrDefault(x =>
                         x.Extensions.Any(y =>
                             y.Equals(extension, StringComparison.OrdinalIgnoreCase)));
                 }
@@ -34,7 +34,7 @@ namespace EnumRun
             }
             set
             {
-                this._lang = Item.Setting.Languages.FirstOrDefault(x =>
+                this._lang = _setting.Languages.FirstOrDefault(x =>
                     x.Name.Equals(value, StringComparison.OrdinalIgnoreCase));
             }
         }
@@ -59,7 +59,7 @@ namespace EnumRun
         }
 
         //  こちらを今後採用予定
-        public Script(string scriptFile, EnumRunSetting setting, Range range)
+        public Script(string scriptFile, Range range, EnumRunSetting setting)
         {
             //  実行可否確認
             Match tempMatch;
@@ -261,12 +261,12 @@ namespace EnumRun
         private async Task ProcessThreadAndOutput()
         {
             string outputFile =
-                Function.CreateOutputFileName(Item.Setting.OutputPath, Path.GetFileNameWithoutExtension(File));
+                Function.CreateOutputFileName(_setting.OutputPath, Path.GetFileNameWithoutExtension(File));
             Item.Logger.Info("{0} / o:{1} 標準出力リダイレクト先⇒{2}", Name, true, outputFile);
 
-            if (!Directory.Exists(Item.Setting.OutputPath))
+            if (!Directory.Exists(_setting.OutputPath))
             {
-                Directory.CreateDirectory(Item.Setting.OutputPath);
+                Directory.CreateDirectory(_setting.OutputPath);
             }
             await Task.Run(() =>
             {

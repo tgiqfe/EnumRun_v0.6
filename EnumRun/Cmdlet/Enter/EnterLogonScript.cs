@@ -32,14 +32,11 @@ namespace EnumRun.Cmdlet
             //  ログ出力設定のセット
             Item.Logger = Function.SetLogger(_setting.LogsPath, Item.APPLICATION_NAME, _setting.DebugMode);
             if (_setting.DebugMode) { Item.Logger.Debug(Function.GetCmdletName(this.GetType().Name)); }
-
-            //  パラメータをItemに格納
-            Item.Setting = _setting;
         }
 
         protected override void ProcessRecord()
         {
-            if (Item.Setting.RunOnce && !BootAndLogonSession.Check(ProcessName))
+            if (_setting.RunOnce && !BootAndLogonSession.Check(ProcessName))
             {
                 Item.Logger.Warn("RunOnce true: 1回実行済みの為、終了");
                 return;
@@ -47,16 +44,17 @@ namespace EnumRun.Cmdlet
 
             Item.Logger.Debug("{0}: 開始", ProcessName);
 
-            Range range = Item.Setting.Ranges.FirstOrDefault(x => x.Name.Equals(ProcessName, StringComparison.OrdinalIgnoreCase));
+            Range range = _setting.Ranges.FirstOrDefault(x => x.Name.Equals(ProcessName, StringComparison.OrdinalIgnoreCase));
             if (range != null)
             {
-                if (Directory.Exists(Item.Setting.FilesPath))
+                if (Directory.Exists(_setting.FilesPath))
                 {
                     //  スクリプトファイルの列挙
                     List<Script> scriptList = new List<Script>();
-                    foreach (string scriptFile in Directory.GetFiles(Item.Setting.FilesPath))
+                    foreach (string scriptFile in Directory.GetFiles(_setting.FilesPath))
                     {
-                        Script script = new Script(scriptFile, range.StartNumber, range.EndNumber);
+                        //Script script = new Script(scriptFile, range.StartNumber, range.EndNumber);
+                        Script script = new Script(scriptFile, range, _setting);
                         if (script.Enabled)
                         {
                             script.Process();
