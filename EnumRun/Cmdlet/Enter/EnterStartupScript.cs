@@ -18,6 +18,7 @@ namespace EnumRun.Cmdlet
         public string SettingPath { get; set; }
 
         private EnumRunSetting _setting = null;
+        private DateTime _startTime;
 
         protected override void BeginProcessing()
         {
@@ -27,7 +28,7 @@ namespace EnumRun.Cmdlet
             }
             _setting = DataSerializer.Deserialize<EnumRunSetting>(SettingPath);
 
-            Item.StartTime = DateTime.Now;
+            _startTime = DateTime.Now;
 
             //  ログ出力設定のセット
             Item.Logger = Function.SetLogger(_setting.LogsPath, Item.APPLICATION_NAME, _setting.DebugMode);
@@ -63,7 +64,7 @@ namespace EnumRun.Cmdlet
                 }
             }
 
-            Item.Logger.Debug("所要時間(ミリ秒):{0}", (DateTime.Now - Item.StartTime).Milliseconds);
+            Item.Logger.Debug("所要時間(ミリ秒):{0}", (DateTime.Now - _startTime).Milliseconds);
             Item.Logger.Debug("{0}: 終了", ProcessName);
         }
     }
