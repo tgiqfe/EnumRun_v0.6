@@ -45,6 +45,7 @@ namespace EnumRun
         public Script() { }
 
         //  廃止予定
+        /*
         public Script(string scriptFile, int startNum, int endNum)
         {
             this.Name = Path.GetFileName(scriptFile);
@@ -57,6 +58,7 @@ namespace EnumRun
             //  実行時オプション確認
             DetectOption();
         }
+        */
 
         //  こちらを今後採用予定
         public Script(string scriptFile, Range range, EnumRunSetting setting)
@@ -84,6 +86,7 @@ namespace EnumRun
         /// <summary>
         /// 実行可否を確認
         /// </summary>
+        /*
         private bool CheckEnable(int startNum, int endNum)
         {
             Match tempMatch;
@@ -101,6 +104,7 @@ namespace EnumRun
             }
             return false;
         }
+        */
 
         /// <summary>
         /// ファイル名末尾から実行時オプションを解析
@@ -254,7 +258,7 @@ namespace EnumRun
                     proc.StartInfo.UseShellExecute = false;
                     proc.Start();
                     proc.WaitForExit();
-                    //proc.ExitCode;    ←戻り値の扱いを検討中
+                    //proc.ExitCode;    ←今後戻り値を扱うかどうかは未定。きっと今後ずっと放置ですが。。。
                 }
             });
         }
