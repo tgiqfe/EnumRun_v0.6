@@ -6,15 +6,19 @@ using System.Threading.Tasks;
 
 namespace EnumRun
 {
+    /// <summary>
+    /// DefaultのRange設定値を取得
+    /// </summary>
     class DefaultRangeSettings
     {
         public static List<Range> Create()
         {
-            List<Range> list = new List<Range>();
             string startupScript = "StartupScript";
             string logonScript = "LogonScript";
             string logoffScript = "LogoffScript";
             string shutdownScript = "ShutdownScript";
+
+            List<Range> list = new List<Range>();
 
             list.Add(new Range()
             {

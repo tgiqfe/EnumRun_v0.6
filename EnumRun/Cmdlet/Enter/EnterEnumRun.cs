@@ -30,7 +30,10 @@ namespace EnumRun.Cmdlet
             _setting = DataSerializer.Deserialize<EnumRunSetting>(SettingPath);
 
             Item.StartTime = DateTime.Now;
-            Item.Logger = Function.SetLogger(ProcessName);
+
+            //  ログ出力設定のセット
+            Item.Logger = Function.SetLogger(_setting.LogsPath, Item.APPLICATION_NAME, _setting.DebugMode);
+            if (_setting.DebugMode) { Item.Logger.Debug(Function.GetCmdletName(this.GetType().Name)); }
 
             //  パラメータをItemに格納
             Item.Setting = _setting;

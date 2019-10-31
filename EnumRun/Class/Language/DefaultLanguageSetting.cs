@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace EnumRun
 {
+    /// <summary>
+    /// DefaultのLanguageの設定値を取得
+    /// </summary>
     class DefaultLanguageSetting
     {
         public static List<Language> Create()

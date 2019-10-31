@@ -21,28 +21,32 @@ namespace EnumRun
         /// <summary>
         /// ログ出力設定
         /// </summary>
-        /// <param name="processName"></param>
+        /// <param name="preName"></param>
         /// <returns></returns>
-        public static Logger SetLogger(string processName)
+        public static Logger SetLogger(string logDir, string preName, bool debugMode)
         {
+            if (!Directory.Exists(logDir)) { Directory.CreateDirectory(logDir); }
+
             string logPath = System.IO.Path.Combine(
-                Item.Setting.LogsPath,
-                string.Format("{0}_{1}.log", processName, DateTime.Now.ToString("yyyyMMdd")));
+                logDir,
+                string.Format("{0}_{1}.log", preName, DateTime.Now.ToString("yyyyMMdd")));
 
             //  ファイル出力先設定
             FileTarget file = new FileTarget("File");
             file.Encoding = Encoding.GetEncoding("Shift_JIS");
             file.Layout = "[${longdate}][${windows-identity}][${uppercase:${level}}] ${message}";
+            //file.Layout = "[${longdate}][${uppercase:${level}}] ${message}";
             file.FileName = logPath;
 
             //  コンソール出力設定
             ConsoleTarget console = new ConsoleTarget("Console");
-            console.Layout = "[${longdate}][${windows-identity}][${uppercase:${level}}] ${message}";
+            //console.Layout = "[${longdate}][${windows-identity}][${uppercase:${level}}] ${message}";
+            console.Layout = "[${longdate}][${uppercase:${level}}] ${message}";
 
             LoggingConfiguration conf = new LoggingConfiguration();
             conf.AddTarget(file);
             conf.AddTarget(console);
-            if (Item.Setting.DebugMode)
+            if (debugMode)
             {
                 conf.LoggingRules.Add(new LoggingRule("*", LogLevel.Debug, file));
                 conf.LoggingRules.Add(new LoggingRule("*", LogLevel.Debug, console));
@@ -55,6 +59,27 @@ namespace EnumRun
             Logger logger = LogManager.GetCurrentClassLogger();
 
             return logger;
+        }
+
+        /// <summary>
+        /// コマンドレット名を取得
+        /// </summary>
+        /// <param name="className"></param>
+        /// <returns></returns>
+        public static string GetCmdletName(string className)
+        {
+            string verbName = "";
+            string command = "";
+            for (int i = 0; i < className.Length; i++)
+            {
+                if (Char.IsUpper(className[i]) && i > 0)
+                {
+                    command = className.Substring(i);
+                    break;
+                }
+                verbName += className[i];
+            }
+            return verbName + "-" + command;
         }
 
         /// <summary>
