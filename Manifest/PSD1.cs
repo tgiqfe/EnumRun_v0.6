@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 
 namespace Manifest
 {
-    //  V0.01.002
+    //  V0.01.003
     class PSD1
     {
         const string EXTENSION = ".psd1";
@@ -49,9 +49,12 @@ namespace Manifest
             //  Format.ps1xmlを探してセット
             List<string> FormatsToProcessList = new List<string>();
             string formatDir = string.Format(@"..\..\..\{0}\Format", projectName);
-            foreach (string formatFile in Directory.GetFiles(formatDir, "*.ps1xml"))
+            if (Directory.Exists(formatDir))
             {
-                FormatsToProcessList.Add(Path.GetFileName(formatFile));
+                foreach (string formatFile in Directory.GetFiles(formatDir, "*.ps1xml"))
+                {
+                    FormatsToProcessList.Add(Path.GetFileName(formatFile));
+                }
             }
 
             //  バージョン取得
@@ -80,13 +83,11 @@ Description = ""{6}""
 CmdletsToExport = @(
   ""{7}""
 )
-FormatsToProcess = @(
-  ""{8}""
-)
+FormatsToProcess = @({8})
 }}",
 RootModule, ModuleVersion, Guid, Author, CompanyName, Copyright, Description,
 string.Join("\",\r\n  \"", CmdletsToExportList),
-string.Join("\",\r\n  \"", FormatsToProcessList)
+FormatsToProcessList.Count > 0 ? "\r\n  \"" + string.Join("\",\r\n  \"", FormatsToProcessList) + "\"\r\n" : ""
 );
             using (StreamWriter sw = new StreamWriter(outputFile, false, Encoding.UTF8))
             {
