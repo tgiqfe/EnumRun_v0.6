@@ -12,7 +12,7 @@ namespace Manifest
     //  V0.01.002
     class Program
     {
-        const string PROJECT_NAME = "EnumRun";
+        const string PROJECT_NAME = "PCT07";
 
         static void Main(string[] args)
         {

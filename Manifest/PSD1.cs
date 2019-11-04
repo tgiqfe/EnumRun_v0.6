@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 
 namespace Manifest
 {
-    //  V0.01.001
+    //  V0.01.002
     class PSD1
     {
         const string EXTENSION = ".psd1";
@@ -24,6 +24,7 @@ namespace Manifest
 
             string dllFile_absolute = Path.GetFullPath(dllFile);
 
+            //  Cmdletを探してセット
             List<string> CmdletsToExportList = new List<string>();
             string cmdletDir = @"..\..\..\" + projectName + @"\Cmdlet";
             foreach (string csFile in Directory.GetFiles(cmdletDir, "*.cs", SearchOption.AllDirectories))
@@ -45,7 +46,18 @@ namespace Manifest
                 }
             }
 
+            //  Format.ps1xmlを探してセット
+            List<string> FormatsToProcessList = new List<string>();
+            string formatDir = string.Format(@"..\..\..\{0}\Format", projectName);
+            foreach (string formatFile in Directory.GetFiles(formatDir, "*.ps1xml"))
+            {
+                FormatsToProcessList.Add(Path.GetFileName(formatFile));
+            }
+
+            //  バージョン取得
             FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(dllFile);
+
+            //  GUID取得
             GuidAttribute attr =
                 Attribute.GetCustomAttribute(Assembly.LoadFile(dllFile_absolute), typeof(GuidAttribute)) as GuidAttribute;
 
@@ -67,9 +79,14 @@ Copyright = ""{5}""
 Description = ""{6}""
 CmdletsToExport = @(
   ""{7}""
-)}}",
+)
+FormatsToProcess = @(
+  ""{8}""
+)
+}}",
 RootModule, ModuleVersion, Guid, Author, CompanyName, Copyright, Description,
-string.Join("\",\r\n  \"", CmdletsToExportList)
+string.Join("\",\r\n  \"", CmdletsToExportList),
+string.Join("\",\r\n  \"", FormatsToProcessList)
 );
             using (StreamWriter sw = new StreamWriter(outputFile, false, Encoding.UTF8))
             {
