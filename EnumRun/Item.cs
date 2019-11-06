@@ -25,9 +25,7 @@ namespace EnumRun
             CONFIG_JSON);
 
         //  複数オブジェクトからアクセスする予定のあるパラメータ
-        //public static EnumRunSetting Setting = null;
         public static Logger Logger = null;
-        //public static DateTime StartTime;
 
         //  ファイル名関連
         public const string SESSION_FILE = "session.json";
