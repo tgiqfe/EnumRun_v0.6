@@ -36,7 +36,7 @@ namespace EnumRun.Cmdlet
             }
             else
             {
-                WriteObject(_setting);
+                WriteObject(_setting, true);
             }
         }
     }

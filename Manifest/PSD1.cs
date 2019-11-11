@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 
 namespace Manifest
 {
-    //  v0.01.005
+    //  v0.01.006
     class PSD1
     {
         public static void Create(ProjectInfo info)
@@ -31,6 +31,10 @@ namespace Manifest
                     {
                         if (Regex.IsMatch(readLine, @"^\s*\[Cmdlet\(Verbs"))
                         {
+                            if (Regex.IsMatch(readLine, @"\/\/\s*Ignore"))
+                            {
+                                break;
+                            }
                             string cmdPre = readLine.Substring(
                                 readLine.IndexOf(".") + 1, readLine.IndexOf(",") - readLine.IndexOf(".") - 1);
                             string cmdSuf = readLine.Substring(

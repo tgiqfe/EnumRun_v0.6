@@ -40,11 +40,11 @@ namespace EnumRun.Cmdlet
             {
                 if (Name == null)
                 {
-                    WriteObject(_setting);
+                    WriteObject(_setting, true);
                 }
                 else
                 {
-                    WriteObject(_setting.GetLanguage(Name));
+                    WriteObject(_setting.GetLanguage(Name), true);
                 }
             }
         }

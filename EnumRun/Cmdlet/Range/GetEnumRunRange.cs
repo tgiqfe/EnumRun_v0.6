@@ -40,11 +40,11 @@ namespace EnumRun.Cmdlet
             {
                 if (Name == null)
                 {
-                    WriteObject(_setting.Ranges);
+                    WriteObject(_setting.Ranges, true);
                 }
                 else
                 {
-                    WriteObject(_setting.GetRange(Name));
+                    WriteObject(_setting.GetRange(Name), true);
                 }
             }
         }
