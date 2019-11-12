@@ -1,7 +1,16 @@
+# ==============================================================
 # Debug
 C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
--ExecutionPolicy Unrestricted -NoExit -Command "Import-Module ..\..\..\EnumRun\bin\Debug\EnumRun.dll"
+-ExecutionPolicy Unrestricted -NoExit -Command "Import-Module ..\..\..\EnumRun\bin\Debug\EnumRun.dll; Update-FormatData -AppendPath ..\..\..\EnumRun\Format\EnumRun.Format.ps1xml"
 
+# フォーマットを読み込まない場合
+# -ExecutionPolicy Unrestricted -NoExit -Command "Import-Module ..\..\..\EnumRun\bin\Debug\EnumRun.dll"
+
+
+# ==============================================================
 # Release
 C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
--ExecutionPolicy Unrestricted -NoExit -Command "Import-Module ..\..\..\EnumRun\bin\Release\EnumRun.dll"
+-ExecutionPolicy Unrestricted -NoExit -Command "Import-Module ..\..\..\EnumRun\bin\Release\EnumRun.dll; Update-FormatData -AppendPath ..\..\..\EnumRun\Format\EnumRun.Format.ps1xml"
+
+# フォーマットを読み込まない場合
+# -ExecutionPolicy Unrestricted -NoExit -Command "Import-Module ..\..\..\EnumRun\bin\Release\EnumRun.dll"

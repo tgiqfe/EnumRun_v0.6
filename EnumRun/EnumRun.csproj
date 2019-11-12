@@ -99,6 +99,7 @@
     <Compile Include="Class\Setting\Script.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Format\EnumRun.Format.ps1xml" />
     <None Include="packages.config" />
     <None Include="Script\LogonScript.ps1" />
     <None Include="Script\LogoffScript.ps1" />
