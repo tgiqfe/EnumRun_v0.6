@@ -30,7 +30,7 @@ namespace EnumRun.Cmdlet
         public Language[] Languages { get; set; }
         [Parameter]
         public SwitchParameter Clear { get; set; }
-        
+
         private EnumRunSetting _setting = null;
 
         protected override void BeginProcessing()
@@ -40,9 +40,7 @@ namespace EnumRun.Cmdlet
             //  2. C:\ProgramData\EnumRun の setting.json
             if (string.IsNullOrEmpty(SettingPath))
             {
-                SettingPath = File.Exists(Item.CURRENT_DIR_SETTING) ? 
-                    Item.CURRENT_DIR_SETTING : 
-                    Item.PROGRAMDATA_SETTING;
+                SettingPath = File.Exists(Item.CURRENT_DIR_SETTING) ? Item.CURRENT_DIR_SETTING : Item.PROGRAMDATA_SETTING;
             }
             _setting = DataSerializer.Deserialize<EnumRunSetting>(SettingPath);
         }
@@ -52,6 +50,7 @@ namespace EnumRun.Cmdlet
             if (_setting == null || Clear)
             {
                 _setting = new EnumRunSetting();
+                _setting.SetDefaultParameter();
             }
 
             //  スクリプトファイルの保存先

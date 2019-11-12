@@ -19,7 +19,12 @@ namespace EnumRun
         public List<Range> Ranges { get; set; }
         public List<Language> Languages { get; set; }
 
-        public EnumRunSetting()
+        public EnumRunSetting() { }
+
+        /// <summary>
+        /// 初期値でパラメータを設定
+        /// </summary>
+        public void SetDefaultParameter()
         {
             this.FilesPath = Path.Combine(Item.DEFAULT_WORKDIR, "Files");
             this.LogsPath = Path.Combine(Item.DEFAULT_WORKDIR, "Logs");
@@ -28,12 +33,6 @@ namespace EnumRun
             this.RunOnce = false;
             this.Ranges = DefaultRangeSettings.Create();
             this.Languages = DefaultLanguageSetting.Create();
-        }
-
-
-        public void SetDefaultParameter()
-        {
-
         }
 
         /// <summary>

@@ -10,21 +10,22 @@ namespace Manifest
 
     public class ProjectInfo
     {
+        //  プロジェクト名を指定
+        const string PROJECT_NAME = "EnumRun";
+
         //  デバッグ/リリースのモード指定
         public Mode Mode { get; set; }
 
-        public string ProjectName { get; set; } = "EnumRun";
+        public string TargetDir { get { return string.Format(@"..\..\..\{0}\bin\{1}", PROJECT_NAME, Mode); } }
+        public string ModuleDir { get { return string.Format(@"..\..\..\{0}\bin\{0}", PROJECT_NAME); } }
+        public string ModuleZip { get { return string.Format(@"..\..\..\{0}\bin\{0}.zip", PROJECT_NAME); } }
+        public string ScriptDir { get { return string.Format(@"..\..\..\{0}\Script", PROJECT_NAME); } }
+        public string FormatDir { get { return string.Format(@"..\..\..\{0}\Format", PROJECT_NAME); } }
+        public string CmdletDir { get { return string.Format(@"..\..\..\{0}\Cmdlet", PROJECT_NAME); } }
 
-        public string TargetDir { get { return string.Format(@"..\..\..\{0}\bin\{1}", ProjectName, Mode); } }
-        public string ModuleDir { get { return string.Format(@"..\..\..\{0}\bin\{0}", ProjectName); } }
-        public string ModuleZip { get { return string.Format(@"..\..\..\{0}\bin\{0}.zip", ProjectName); } }
-        public string ScriptDir { get { return string.Format(@"..\..\..\{0}\Script", ProjectName); } }
-        public string FormatDir { get { return string.Format(@"..\..\..\{0}\Format", ProjectName); } }
-        public string CmdletDir { get { return string.Format(@"..\..\..\{0}\Cmdlet", ProjectName); } }
-
-        public string DllFile { get { return string.Format(@"..\..\..\{0}\bin\{1}\{0}.dll", ProjectName, Mode); } }
-        public string Psd1File { get { return string.Format(@"..\..\..\{0}\bin\{1}\{0}.psd1", ProjectName, Mode); } }
-        public string Psm1File { get { return string.Format(@"..\..\..\{0}\bin\{1}\{0}.psm1", ProjectName, Mode); } }
+        public string DllFile { get { return string.Format(@"..\..\..\{0}\bin\{1}\{0}.dll", PROJECT_NAME, Mode); } }
+        public string Psd1File { get { return string.Format(@"..\..\..\{0}\bin\{1}\{0}.psd1", PROJECT_NAME, Mode); } }
+        public string Psm1File { get { return string.Format(@"..\..\..\{0}\bin\{1}\{0}.psm1", PROJECT_NAME, Mode); } }
 
         public string Description { get; set; } = "Run enumerated script";
         public string Author { get; set; } = "q";
