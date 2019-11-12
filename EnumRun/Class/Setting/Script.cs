@@ -12,7 +12,7 @@ namespace EnumRun
 {
     public class Script
     {
-        private Language _lang = null;
+        private EnumRun.Language.Language _lang = null;
         private EnumRunSetting _setting = null;
 
         public bool Enabled { get; set; }

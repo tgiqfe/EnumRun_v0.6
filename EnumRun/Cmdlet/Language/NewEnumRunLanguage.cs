@@ -29,7 +29,7 @@ namespace EnumRun.Cmdlet
 
         protected override void ProcessRecord()
         {
-            WriteObject(new Language()
+            WriteObject(new EnumRun.Language.Language()
             {
                 Name = this.Name,
                 Extensions = this.Extensions,

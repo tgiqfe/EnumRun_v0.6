@@ -27,7 +27,7 @@ namespace EnumRun.Cmdlet
         [Parameter]
         public Range[] Ranges { get; set; }
         [Parameter]
-        public Language[] Languages { get; set; }
+        public EnumRun.Language.Language[] Languages { get; set; }
         [Parameter]
         public SwitchParameter Clear { get; set; }
 
@@ -73,7 +73,7 @@ namespace EnumRun.Cmdlet
             if (Ranges != null && Ranges.Length > 0) { _setting.Ranges = new List<Range>(Ranges); }
 
             //  Languages設定
-            if (Languages != null && Languages.Length > 0) { _setting.Languages = new List<Language>(Languages); }
+            if (Languages != null && Languages.Length > 0) { _setting.Languages = new List<EnumRun.Language.Language>(Languages); }
 
             DataSerializer.Serialize<EnumRunSetting>(_setting, SettingPath);
 

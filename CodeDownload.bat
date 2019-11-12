@@ -48,4 +48,20 @@ powershell -Command "(Get-Content \".\%JsonCS%\") -replace \"%beforeNamespace%\"
 powershell -Command "(Get-Content \".\%XmlCS%\") -replace \"%beforeNamespace%\",\"%afterNamespace%\" | Out-File \".\%XmlCS%\" -Encoding UTF8"
 powershell -Command "(Get-Content \".\%YmlCS%\") -replace \"%beforeNamespace%\",\"%afterNamespace%\" | Out-File \".\%YmlCS%\" -Encoding UTF8"
 
+rem # ScriptLanguage
+set DefaultLanguageSettingCS=%ProjectName%\Class\Language\DefaultLanguageSetting.cs
+set LanguageCS=%ProjectName%\Class\Language\Language.cs
+
+set beforeNamespace=namespace ScriptLanguage
+set afterNamespace=namespace EnumRun.Language
+
+powershell -Command "Invoke-WebRequest -Uri \"https://raw.githubusercontent.com/tgiqfe/ScriptLanguage/master/ScriptLanguage/Language/DefaultLanguageSetting.cs\" -OutFile \".\%DefaultLanguageSettingCS%\""
+powershell -Command "Invoke-WebRequest -Uri \"https://raw.githubusercontent.com/tgiqfe/ScriptLanguage/master/ScriptLanguage/Language/Language.cs\" -OutFile \".\%LanguageCS%\""
+
+powershell -Command "(Get-Content \".\%DefaultLanguageSettingCS%\") -replace \"`n\",\"`r`n\" | Out-File \".\%DefaultLanguageSettingCS%\" -Encoding UTF8"
+powershell -Command "(Get-Content \".\%LanguageCS%\") -replace \"`n\",\"`r`n\" | Out-File \".\%LanguageCS%\" -Encoding UTF8"
+
+powershell -Command "(Get-Content \".\%DefaultLanguageSettingCS%\") -replace \"%beforeNamespace%\",\"%afterNamespace%\" | Out-File \".\%DefaultLanguageSettingCS%\" -Encoding UTF8"
+powershell -Command "(Get-Content \".\%LanguageCS%\") -replace \"%beforeNamespace%\",\"%afterNamespace%\" | Out-File \".\%LanguageCS%\" -Encoding UTF8"
+
 

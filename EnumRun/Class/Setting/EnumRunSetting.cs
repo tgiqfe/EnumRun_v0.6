@@ -17,7 +17,7 @@ namespace EnumRun
         public bool DebugMode { get; set; }
         public bool RunOnce { get; set; }
         public List<Range> Ranges { get; set; }
-        public List<Language> Languages { get; set; }
+        public List<EnumRun.Language.Language> Languages { get; set; }
 
         public EnumRunSetting() { }
 
@@ -32,7 +32,7 @@ namespace EnumRun
             this.DebugMode = false;
             this.RunOnce = false;
             this.Ranges = DefaultRangeSettings.Create();
-            this.Languages = DefaultLanguageSetting.Create();
+            this.Languages = EnumRun.Language.DefaultLanguageSetting.Create();
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace EnumRun
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public Language[] GetLanguage(string name)
+        public EnumRun.Language.Language[] GetLanguage(string name)
         {
             string patternString = Regex.Replace(name, ".",
                 x =>

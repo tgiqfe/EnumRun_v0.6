@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Diagnostics;
 
-namespace EnumRun
+namespace EnumRun.Language
 {
     public class Language
     {

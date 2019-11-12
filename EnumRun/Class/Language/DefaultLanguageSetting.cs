@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EnumRun
+namespace EnumRun.Language
 {
     /// <summary>
     /// DefaultのLanguageの設定値を取得
