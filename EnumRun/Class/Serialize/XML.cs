@@ -11,7 +11,7 @@ using System.Xml.Linq;
 
 namespace EnumRun.Serialize
 {
-    class XML
+    internal class XML
     {
         /// <summary>
         /// XMLシリアライズ用の、空の名前空間

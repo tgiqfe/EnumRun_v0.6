@@ -10,7 +10,7 @@ using Newtonsoft.Json.Converters;
 
 namespace EnumRun.Serialize
 {
-    class JSON
+    internal class JSON
     {
         /// <summary>
         /// JsonConvert用デフォルト設定

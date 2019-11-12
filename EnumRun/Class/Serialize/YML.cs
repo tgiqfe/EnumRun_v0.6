@@ -9,7 +9,7 @@ using YamlDotNet.Serialization;
 
 namespace EnumRun.Serialize
 {
-    class YML
+    internal class YML
     {
         /// <summary>
         /// TextReaderからオブジェクトにデシリアライズ

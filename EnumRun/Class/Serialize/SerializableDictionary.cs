@@ -24,6 +24,10 @@ namespace EnumRun.Serialize
             }
         }
 
+        public SerializableDictionary() { }
+
+        public SerializableDictionary(IEqualityComparer<TKey> comparer) : base(0, comparer) { }
+
         public XmlSchema GetSchema() { return null; }
 
         public void ReadXml(XmlReader reader)

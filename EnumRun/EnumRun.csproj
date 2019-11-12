@@ -65,6 +65,7 @@
     <Compile Include="BootAndLogonSession.cs" />
     <Compile Include="Class\Serialize\DataSerializer.cs" />
     <Compile Include="Class\Serialize\DataType.cs" />
+    <Compile Include="Class\Serialize\DictionaryExtensions.cs" />
     <Compile Include="Class\Serialize\JSON.cs" />
     <Compile Include="Class\Serialize\SerializableDictionary.cs" />
     <Compile Include="Class\Serialize\XML.cs" />
