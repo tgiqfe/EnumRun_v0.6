@@ -48,7 +48,7 @@ namespace EnumRun
                 ArgsPrefix = "//nologo \"",
                 ArgsMidWithoutArgs = "\"",
                 ArgsMidWithArgs = "\" ",
-                ArgsSuffix = ""
+                ArgsSuffix = "",
             });
             list.Add(new Language()
             {
@@ -58,7 +58,17 @@ namespace EnumRun
                 ArgsPrefix = "\"",
                 ArgsMidWithoutArgs = "\"",
                 ArgsMidWithArgs = "\" ",
-                ArgsSuffix = ""
+                ArgsSuffix = "",
+            });
+            list.Add(new Language()
+            {
+                Name = "Node.js",
+                Extensions = new string[] { ".js" },
+                Command = @"C:\Program Files\nodejs\node.exe",
+                ArgsPrefix = "\"",
+                ArgsMidWithoutArgs = "\"",
+                ArgsMidWithArgs = "\" ",
+                ArgsSuffix = "",
             });
             return list;
         }

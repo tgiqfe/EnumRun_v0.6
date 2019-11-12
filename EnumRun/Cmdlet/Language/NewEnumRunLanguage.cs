@@ -39,7 +39,7 @@ namespace EnumRun.Cmdlet
                 ArgsMidWithoutArgs = this.ArgsMidWithoutArgs,
                 ArgsMidWithArgs = this.ArgsMidWithArgs,
                 ArgsSuffix = this.ArgsSuffix
-            });
+            }, true);
         }
     }
 }

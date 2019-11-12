@@ -47,6 +47,7 @@ namespace EnumRun.Cmdlet
 
         protected override void ProcessRecord()
         {
+            //  ClearもしくはEnumRunSettingがnullの場合、デフォルト設定で再作成
             if (_setting == null || Clear)
             {
                 _setting = new EnumRunSetting();
@@ -76,7 +77,7 @@ namespace EnumRun.Cmdlet
 
             DataSerializer.Serialize<EnumRunSetting>(_setting, SettingPath);
 
-            WriteObject(_setting);
+            WriteObject(_setting, true);
         }
     }
 }

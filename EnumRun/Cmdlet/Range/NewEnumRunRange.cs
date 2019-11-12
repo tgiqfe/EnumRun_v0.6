@@ -24,7 +24,7 @@ namespace EnumRun.Cmdlet
                 Name = this.Name,
                 StartNumber = this.StartNumber,
                 EndNumber = this.EndNumber
-            });
+            }, true);
         }
     }
 }

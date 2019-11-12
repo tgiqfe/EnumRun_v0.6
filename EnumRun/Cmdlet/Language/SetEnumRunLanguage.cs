@@ -32,6 +32,8 @@ namespace EnumRun.Cmdlet
         public string ArgsSuffix { get; set; }
         [Parameter(Position = 0), Alias("Path")]
         public string SettingPath { get; set; }
+        [Parameter]
+        public SwitchParameter Clear { get; set; }
 
         private EnumRunSetting _setting = null;
 
@@ -46,6 +48,13 @@ namespace EnumRun.Cmdlet
 
         protected override void ProcessRecord()
         {
+            //  ClearもしくはEnumRunSettingがnullの場合、デフォルト設定で再作成
+            if (_setting == null || Clear)
+            {
+                _setting = new EnumRunSetting();
+                _setting.SetDefaultParameter();
+            }
+
             if (Language == null && !string.IsNullOrEmpty(Name))
             {
                 Language[] langs = _setting.GetLanguage(Name);
@@ -86,6 +95,8 @@ namespace EnumRun.Cmdlet
                 }
             }
             DataSerializer.Serialize<EnumRunSetting>(_setting, SettingPath);
+
+            WriteObject(_setting.Languages, true);
         }
     }
 }

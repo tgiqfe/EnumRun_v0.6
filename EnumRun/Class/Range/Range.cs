@@ -14,6 +14,10 @@ namespace EnumRun
 
         public Range() { }
 
+        /// <summary>
+        /// Tostringをオーバーライド。LogonScript[11-29] 表示のように
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return string.Format("{0}[{1}-{2}]", this.Name, this.StartNumber, this.EndNumber);

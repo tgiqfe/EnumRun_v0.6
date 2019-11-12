@@ -40,7 +40,7 @@ namespace EnumRun.Cmdlet
             {
                 if (Name == null)
                 {
-                    WriteObject(_setting, true);
+                    WriteObject(_setting.Languages, true);
                 }
                 else
                 {

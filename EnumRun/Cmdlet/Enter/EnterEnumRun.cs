@@ -54,7 +54,6 @@ namespace EnumRun.Cmdlet
                     List<Script> scriptList = new List<Script>();
                     foreach (string scriptFile in Directory.GetFiles(_setting.FilesPath))
                     {
-                        //Script script = new Script(scriptFile, range.StartNumber, range.EndNumber);
                         Script script = new Script(scriptFile, range, _setting);
                         if (script.Enabled)
                         {
