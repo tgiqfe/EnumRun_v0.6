@@ -33,43 +33,5 @@
         </ListEntries>
       </ListControl>
     </View>
-    <View>
-      <Name>PCT07.ProfileCopySetting</Name>
-      <ViewSelectedBy>
-        <TypeName>PCT07.ProfileCopySetting</TypeName>
-      </ViewSelectedBy>
-      <ListControl>
-        <ListEntries>
-          <ListEntry>
-            <ListItems>
-              <ListItem>
-                <PropertyName>MasterUser</PropertyName>
-              </ListItem>
-              <ListItem>
-                <PropertyName>MasterSID</PropertyName>
-              </ListItem>
-              <ListItem>
-                <PropertyName>MasterProfilePath</PropertyName>
-              </ListItem>
-              <ListItem>
-                <PropertyName>DefaultProfilePath</PropertyName>
-              </ListItem>
-              <ListItem>
-                <PropertyName>WorkDirectory</PropertyName>
-              </ListItem>
-              <ListItem>
-                <PropertyName>LogDirectory</PropertyName>
-              </ListItem>
-              <ListItem>
-                <PropertyName>BeforeScript</PropertyName>
-              </ListItem>
-              <ListItem>
-                <PropertyName>AfterScript</PropertyName>
-              </ListItem>
-            </ListItems>
-          </ListEntry>
-        </ListEntries>
-      </ListControl>
-    </View>
   </ViewDefinitions>
 </Configuration>

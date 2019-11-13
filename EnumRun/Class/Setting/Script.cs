@@ -7,12 +7,13 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Diagnostics;
+using EnumRun.ScriptLanguage;
 
 namespace EnumRun
 {
     public class Script
     {
-        private EnumRun.Language.Language _lang = null;
+        private Language _lang = null;
         private EnumRunSetting _setting = null;
 
         public bool Enabled { get; set; }
@@ -44,22 +45,6 @@ namespace EnumRun
 
         public Script() { }
 
-        //  廃止予定
-        /*
-        public Script(string scriptFile, int startNum, int endNum)
-        {
-            this.Name = Path.GetFileName(scriptFile);
-            this.File = scriptFile;
-
-            //  実行可否確認
-            this.Enabled = CheckEnable(startNum, endNum);
-            if (!Enabled) { return; }
-
-            //  実行時オプション確認
-            DetectOption();
-        }
-        */
-
         //  こちらを今後採用予定
         public Script(string scriptFile, Range range, EnumRunSetting setting)
         {
@@ -82,30 +67,6 @@ namespace EnumRun
                 }
             }
         }
-
-
-        /// <summary>
-        /// 実行可否を確認
-        /// </summary>
-        /*
-        private bool CheckEnable(int startNum, int endNum)
-        {
-            Match tempMatch;
-            if ((tempMatch = Regex.Match(Name, @"^\d+(?=_)")).Success)
-            {
-                //  ファイル名の先頭が数字かどうか
-                int fileNumber = int.Parse(tempMatch.Value);
-                if (fileNumber < startNum || fileNumber > endNum)
-                {
-                    return false;
-                }
-
-                //  拡張子が事前登録している言語のものかどうか
-                return !string.IsNullOrEmpty(this.Lang);
-            }
-            return false;
-        }
-        */
 
         /// <summary>
         /// ファイル名末尾から実行時オプションを解析
@@ -290,7 +251,7 @@ namespace EnumRun
                     proc.BeginOutputReadLine();
                     proc.BeginErrorReadLine();
                     proc.WaitForExit();
-                    //proc.ExitCode;    ←戻り値の扱いを検討中
+                    //proc.ExitCode;    ←今後戻り値を扱うかどうかは未定。きっと今後ずっと放置ですが。。。
                 }
             });
         }

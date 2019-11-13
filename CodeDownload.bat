@@ -49,11 +49,11 @@ powershell -Command "(Get-Content \".\%XmlCS%\") -replace \"%beforeNamespace%\",
 powershell -Command "(Get-Content \".\%YmlCS%\") -replace \"%beforeNamespace%\",\"%afterNamespace%\" | Out-File \".\%YmlCS%\" -Encoding UTF8"
 
 rem # ScriptLanguage
-set DefaultLanguageSettingCS=%ProjectName%\Class\Language\DefaultLanguageSetting.cs
-set LanguageCS=%ProjectName%\Class\Language\Language.cs
+set DefaultLanguageSettingCS=%ProjectName%\Class\ScriptLanguage\DefaultLanguageSetting.cs
+set LanguageCS=%ProjectName%\Class\ScriptLanguage\Language.cs
 
 set beforeNamespace=namespace ScriptLanguage
-set afterNamespace=namespace EnumRun.Language
+set afterNamespace=namespace EnumRun.ScriptLanguage
 
 powershell -Command "Invoke-WebRequest -Uri \"https://raw.githubusercontent.com/tgiqfe/ScriptLanguage/master/ScriptLanguage/Language/DefaultLanguageSetting.cs\" -OutFile \".\%DefaultLanguageSettingCS%\""
 powershell -Command "Invoke-WebRequest -Uri \"https://raw.githubusercontent.com/tgiqfe/ScriptLanguage/master/ScriptLanguage/Language/Language.cs\" -OutFile \".\%LanguageCS%\""

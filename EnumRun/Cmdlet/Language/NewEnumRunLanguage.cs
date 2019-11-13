@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Management.Automation;
+using EnumRun.ScriptLanguage;
 
 namespace EnumRun.Cmdlet
 {
@@ -29,7 +30,7 @@ namespace EnumRun.Cmdlet
 
         protected override void ProcessRecord()
         {
-            WriteObject(new EnumRun.Language.Language()
+            WriteObject(new Language()
             {
                 Name = this.Name,
                 Extensions = this.Extensions,

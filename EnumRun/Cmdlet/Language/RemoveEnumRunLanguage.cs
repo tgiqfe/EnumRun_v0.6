@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Management.Automation;
 using System.IO;
 using EnumRun.Serialize;
+using EnumRun.ScriptLanguage;
 
 namespace EnumRun.Cmdlet
 {
@@ -13,7 +14,7 @@ namespace EnumRun.Cmdlet
     public class RemoveEnumRunLanguage : PSCmdlet
     {
         [Parameter(ValueFromPipeline = true)]
-        public EnumRun.Language.Language[] Language { get; set; }
+        public Language[] Language { get; set; }
         [Parameter(Position = 0)]
         public string Name { get; set; }
         [Parameter(Position = 0), Alias("Path")]
@@ -34,7 +35,7 @@ namespace EnumRun.Cmdlet
         {
             if (Language == null && !string.IsNullOrEmpty(Name))
             {
-                foreach (EnumRun.Language.Language lang in _setting.GetLanguage(Name))
+                foreach (Language lang in _setting.GetLanguage(Name))
                 {
                     _setting.Languages.Remove(lang);
                 }
@@ -42,7 +43,7 @@ namespace EnumRun.Cmdlet
             else if (Language != null)
             {
                 //  名前判定せず、インスタンスの中身が一致したら削除
-                foreach (EnumRun.Language.Language lang in Language)
+                foreach (Language lang in Language)
                 {
                     _setting.Languages.Remove(lang);
                 }

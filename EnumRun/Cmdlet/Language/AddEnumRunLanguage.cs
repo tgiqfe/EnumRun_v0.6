@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Management.Automation;
 using EnumRun.Serialize;
 using System.IO;
+using EnumRun.ScriptLanguage;
 
 namespace EnumRun.Cmdlet
 {
@@ -13,7 +14,7 @@ namespace EnumRun.Cmdlet
     public class AddEnumRunLanguage : PSCmdlet
     {
         [Parameter(ValueFromPipeline = true)]
-        public EnumRun.Language.Language[] Language { get; set; }
+        public Language[] Language { get; set; }
         [Parameter(Position = 0)]
         public string Name { get; set; }
         [Parameter]
@@ -48,7 +49,7 @@ namespace EnumRun.Cmdlet
         {
             if (Language == null && !string.IsNullOrEmpty(Name))
             {
-                EnumRun.Language.Language[] langs = _setting.GetLanguage(Name);
+                Language[] langs = _setting.GetLanguage(Name);
                 if (langs != null && langs.Length > 0)
                 {
                     //  すでに同じ名前のLanguageがある為、追加不可
@@ -57,7 +58,7 @@ namespace EnumRun.Cmdlet
                 else
                 {
                     //  名前を指定の場合は1つずつ追加
-                    _setting.Languages.Add(new EnumRun.Language.Language()
+                    _setting.Languages.Add(new Language()
                     {
                         Name = this.Name,
                         Extensions = this.Extensions,
@@ -72,7 +73,7 @@ namespace EnumRun.Cmdlet
             }
             else if (Language != null)
             {
-                foreach (EnumRun.Language.Language lang in Language)
+                foreach (Language lang in Language)
                 {
                     if(_setting.Languages.Any(x => x.Name.Equals(lang.Name, StringComparison.OrdinalIgnoreCase)))
                     {
