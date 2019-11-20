@@ -4,6 +4,8 @@ pushd %~dp0
 set ProjectName=EnumRun
 
 rem # Code for Manifest
+echo Manifest Code Update
+
 powershell -Command "Invoke-WebRequest -Uri \"https://raw.githubusercontent.com/tgiqfe/Manifest/master/Manifest/Program.cs\" -OutFile \".\Manifest\Program.cs\""
 powershell -Command "Invoke-WebRequest -Uri \"https://raw.githubusercontent.com/tgiqfe/Manifest/master/Manifest/PSD1.cs\" -OutFile \".\Manifest\PSD1.cs\""
 powershell -Command "Invoke-WebRequest -Uri \"https://raw.githubusercontent.com/tgiqfe/Manifest/master/Manifest/PSM1.cs\" -OutFile \".\Manifest\PSM1.cs\""
@@ -13,6 +15,8 @@ powershell -Command "(Get-Content \".\Manifest\PSD1.cs\") -replace \"`n\",\"`r`n
 powershell -Command "(Get-Content \".\Manifest\PSM1.cs\") -replace \"`n\",\"`r`n\" | Out-File \".\Manifest\PSM1.cs\" -Encoding UTF8"
 
 rem # Code for DataSerializer
+echo DataSerializer Code Update
+
 set DataSerializerCS=%ProjectName%\Class\Serialize\DataSerializer.cs
 set DataTypeCS=%ProjectName%\Class\Serialize\DataType.cs
 set DictionaryExtensionsCS=%ProjectName%\Class\Serialize\DictionaryExtensions.cs
@@ -49,6 +53,8 @@ powershell -Command "(Get-Content \".\%XmlCS%\") -replace \"%beforeNamespace%\",
 powershell -Command "(Get-Content \".\%YmlCS%\") -replace \"%beforeNamespace%\",\"%afterNamespace%\" | Out-File \".\%YmlCS%\" -Encoding UTF8"
 
 rem # ScriptLanguage
+echo ScriptLanguage Code Update
+
 set DefaultLanguageSettingCS=%ProjectName%\Class\ScriptLanguage\DefaultLanguageSetting.cs
 set LanguageCS=%ProjectName%\Class\ScriptLanguage\Language.cs
 
