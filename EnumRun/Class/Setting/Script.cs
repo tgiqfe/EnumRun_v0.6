@@ -66,6 +66,10 @@ namespace EnumRun
                     }
                 }
             }
+            else
+            {
+                Item.Logger.Debug("実行対象外(名称ルール違反): {0}", Name);
+            }
         }
 
         /// <summary>

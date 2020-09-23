@@ -9,10 +9,12 @@ echo Manifest Code Update
 powershell -Command "Invoke-WebRequest -Uri \"https://raw.githubusercontent.com/tgiqfe/Manifest/master/Manifest/Program.cs\" -OutFile \".\Manifest\Program.cs\""
 powershell -Command "Invoke-WebRequest -Uri \"https://raw.githubusercontent.com/tgiqfe/Manifest/master/Manifest/PSD1.cs\" -OutFile \".\Manifest\PSD1.cs\""
 powershell -Command "Invoke-WebRequest -Uri \"https://raw.githubusercontent.com/tgiqfe/Manifest/master/Manifest/PSM1.cs\" -OutFile \".\Manifest\PSM1.cs\""
+powershell -Command "Invoke-WebRequest -Uri \"https://raw.githubusercontent.com/tgiqfe/Manifest/master/Manifest/ExternalPackage.cs\" -OutFile \".\Manifest\ExternalPackage.cs\""
 
 powershell -Command "(Get-Content \".\Manifest\Program.cs\") -replace \"`n\",\"`r`n\" | Out-File \".\Manifest\Program.cs\" -Encoding UTF8"
 powershell -Command "(Get-Content \".\Manifest\PSD1.cs\") -replace \"`n\",\"`r`n\" | Out-File \".\Manifest\PSD1.cs\" -Encoding UTF8"
 powershell -Command "(Get-Content \".\Manifest\PSM1.cs\") -replace \"`n\",\"`r`n\" | Out-File \".\Manifest\PSM1.cs\" -Encoding UTF8"
+powershell -Command "(Get-Content \".\Manifest\ExternalPackage.cs\") -replace \"`n\",\"`r`n\" | Out-File \".\Manifest\ExternalPackage.cs\" -Encoding UTF8"
 
 rem # Code for DataSerializer
 echo DataSerializer Code Update
@@ -24,6 +26,7 @@ set SerializableDictionaryCS=%ProjectName%\Class\Serialize\SerializableDictionar
 set JsonCS=%ProjectName%\Class\Serialize\JSON.cs
 set XmlCS=%ProjectName%\Class\Serialize\XML.cs
 set YmlCS=%ProjectName%\Class\Serialize\YML.cs
+set IniFile=%ProjectName%\Class\Serialize\IniFile.cs
 
 set beforeNamespace=namespace DataSerializer
 set afterNamespace=namespace EnumRun.Serialize
@@ -35,6 +38,7 @@ powershell -Command "Invoke-WebRequest -Uri \"https://raw.githubusercontent.com/
 powershell -Command "Invoke-WebRequest -Uri \"https://raw.githubusercontent.com/tgiqfe/DataSerializer/master/DataSerializer/Serialize/JSON.cs\" -OutFile \".\%JsonCS%\""
 powershell -Command "Invoke-WebRequest -Uri \"https://raw.githubusercontent.com/tgiqfe/DataSerializer/master/DataSerializer/Serialize/XML.cs\" -OutFile \".\%XmlCS%\""
 powershell -Command "Invoke-WebRequest -Uri \"https://raw.githubusercontent.com/tgiqfe/DataSerializer/master/DataSerializer/Serialize/YML.cs\" -OutFile \".\%YmlCS%\""
+powershell -Command "Invoke-WebRequest -Uri \"https://raw.githubusercontent.com/tgiqfe/DataSerializer/master/DataSerializer/Serialize/IniFile.cs\" -OutFile \".\%IniFile%\""
 
 powershell -Command "(Get-Content \".\%DataSerializerCS%\") -replace \"`n\",\"`r`n\" | Out-File \".\%DataSerializerCS%\" -Encoding UTF8"
 powershell -Command "(Get-Content \".\%DataTypeCS%\") -replace \"`n\",\"`r`n\" | Out-File \".\%DataTypeCS%\" -Encoding UTF8"
@@ -43,6 +47,7 @@ powershell -Command "(Get-Content \".\%SerializableDictionaryCS%\") -replace \"`
 powershell -Command "(Get-Content \".\%JsonCS%\") -replace \"`n\",\"`r`n\" | Out-File \".\%JsonCS%\" -Encoding UTF8"
 powershell -Command "(Get-Content \".\%XmlCS%\") -replace \"`n\",\"`r`n\" | Out-File \".\%XmlCS%\" -Encoding UTF8"
 powershell -Command "(Get-Content \".\%YmlCS%\") -replace \"`n\",\"`r`n\" | Out-File \".\%YmlCS%\" -Encoding UTF8"
+powershell -Command "(Get-Content \".\%IniFile%\") -replace \"`n\",\"`r`n\" | Out-File \".\%IniFile%\" -Encoding UTF8"
 
 powershell -Command "(Get-Content \".\%DataSerializerCS%\") -replace \"%beforeNamespace%\",\"%afterNamespace%\" | Out-File \".\%DataSerializerCS%\" -Encoding UTF8"
 powershell -Command "(Get-Content \".\%DataTypeCS%\") -replace \"%beforeNamespace%\",\"%afterNamespace%\" | Out-File \".\%DataTypeCS%\" -Encoding UTF8"
@@ -51,6 +56,7 @@ powershell -Command "(Get-Content \".\%SerializableDictionaryCS%\") -replace \"%
 powershell -Command "(Get-Content \".\%JsonCS%\") -replace \"%beforeNamespace%\",\"%afterNamespace%\" | Out-File \".\%JsonCS%\" -Encoding UTF8"
 powershell -Command "(Get-Content \".\%XmlCS%\") -replace \"%beforeNamespace%\",\"%afterNamespace%\" | Out-File \".\%XmlCS%\" -Encoding UTF8"
 powershell -Command "(Get-Content \".\%YmlCS%\") -replace \"%beforeNamespace%\",\"%afterNamespace%\" | Out-File \".\%YmlCS%\" -Encoding UTF8"
+powershell -Command "(Get-Content \".\%IniFile%\") -replace \"%beforeNamespace%\",\"%afterNamespace%\" | Out-File \".\%IniFile%\" -Encoding UTF8"
 
 rem # ScriptLanguage
 echo ScriptLanguage Code Update

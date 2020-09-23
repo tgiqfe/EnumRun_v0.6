@@ -50,8 +50,7 @@ namespace EnumRun.Cmdlet
             {
                 if (Directory.Exists(_setting.FilesPath))
                 {
-                    //  スクリプトファイルの列挙
-                    List<Script> scriptList = new List<Script>();
+                    //  スクリプトファイルの列挙実行
                     foreach (string scriptFile in Directory.GetFiles(_setting.FilesPath))
                     {
                         Script script = new Script(scriptFile, range, _setting);
@@ -64,7 +63,7 @@ namespace EnumRun.Cmdlet
             }
 
             Item.Logger.Debug("所要時間(ミリ秒):{0}", (DateTime.Now - _startTime).Milliseconds);
-            Item.Logger.Debug("{0}: 終了", ProcessName);
+            Item.Logger.Info("{0}: 終了", ProcessName);
         }
     }
 }

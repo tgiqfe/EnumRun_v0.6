@@ -50,8 +50,7 @@ namespace EnumRun.Cmdlet
             {
                 if (Directory.Exists(_setting.FilesPath))
                 {
-                    //  スクリプトファイルの列挙
-                    List<Script> scriptList = new List<Script>();
+                    //  スクリプトファイルの列挙実行
                     foreach (string scriptFile in Directory.GetFiles(_setting.FilesPath))
                     {
                         Script script = new Script(scriptFile, range, _setting);
